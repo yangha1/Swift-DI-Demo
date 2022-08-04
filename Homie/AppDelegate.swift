@@ -6,14 +6,20 @@
 //
 
 import UIKit
+import ICommon
+import Swinject
+import Home
+import IContact
+import IUser
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
-
-
+    
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        ICommonService.shared.assemblyDelegate = self
+        ICommonService.shared.setup()
         return true
     }
 
@@ -32,5 +38,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
 
+}
+
+extension AppDelegate: DIRegistDelegate {
+    func allBssemblys() -> Array<Assembly> {
+        return [
+            HomeAssembly(),
+            IContactAssembly(),
+            IUserAssembly()
+        ]
+    }
 }
 
